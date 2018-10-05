@@ -18,9 +18,9 @@ router.get('/rooms', (req, res) => {
       })
 })
 
-router.get('/rooms/:id', Auth, (req, res) => {
+router.get('/rooms/:id', (req, res) => {
     Room
-      .find({_id: req.params.id})
+      .findOne({_id: req.params.id})
       .then(result => {
           res.status(200).json({
               success: true,
@@ -30,6 +30,12 @@ router.get('/rooms/:id', Auth, (req, res) => {
       .catch((err) => {
           res.status(500).send(err)
       })
+})
+
+router.post('/rooms', (req, res) => {
+    const room = new Room({...req.body, _id: new mongoose.Types.ObjectId()})
+    room.save()
+        .then(result => res.send(result))
 })
 
 module.exports = router

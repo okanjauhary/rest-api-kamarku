@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const User = require('../models/users');
+const Room = require('../models/rooms')
 const jwt = require('jsonwebtoken');
 
 router.post('/users', (req, res, next) => {
@@ -27,5 +28,6 @@ router.post('/login', (req, res) => {
             res.status(500).send(err)
         })
 })
+
 
 module.exports = router
